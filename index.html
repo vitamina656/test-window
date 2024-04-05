@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Test</title>
+</head>
+
+<body>
+    <div style="display:flex;flex-direction:column; align-items: center; width: 70%;">
+        <button style="color: #690422; font-weight: 600;font-size: 25px; margin:30px" onClick= "startBankId('window')">startBankId / window open</button>
+        <button style="color: #690422; font-weight: 600;font-size: 25px; margin:30px" onClick= "startBankId('anchor')">startBankId / anchor click simulator</button>
+        <button style="color: #690422; font-weight: 600;font-size: 25px; margin:30px" onClick= "startBankId('url')">startBankId / window open before await</button>
+    </div>
+
+    <script language="javascript">
+        async function startBankId(target) {
+            if (target === 'window') {
+                const url = await getUrl();
+                window.open(url, '_blank');
+            } else if (target === 'anchor') {
+                const url = await getUrl();
+
+                const event = new MouseEvent("click", {
+                view: window,
+                bubbles: true,
+                cancelable: true,
+                });
+
+                var a = document.createElement('a');
+                a.setAttribute("href", url);
+                a.setAttribute("target", "_blank");
+                document.body.appendChild(a);
+
+                !a.dispatchEvent(event);
+                !a.remove();
+            } else if (target === 'url') {
+                const w = window.open('', '_blank');
+                const url = await getUrl();
+                w.location = url;
+            }
+        }
+
+        function getUrl() {
+            return 'https://app.bankid.com/?autostarttoken=a4904c4c-3bb4-4e3f-8ac3-0e950e529e5f&redirect=null'
+        }
+    </script>
+
+</body>
+
+</html>
