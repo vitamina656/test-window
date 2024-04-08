@@ -4,7 +4,7 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
-    <meta http-equiv="Content-Security-Policy" content="'self'" >
+    <meta http-equiv="Content-Security-Policy" content=""script-src 'self';default-src 'self'" >
     <title>Test</title>
 </head>
 
@@ -38,11 +38,11 @@
                     !a.dispatchEvent(event);
                     !a.remove();
                 } catch (e) {
-                    const message =  new Error("New error message", { cause: e };
+                    const message =  new Error("New error message", { cause: e });
                     console.warn(message, e);
                     const myAnchor = document.getElementById("myAnchor") //test
-                    myAnchor!.innerHTML = "Error"+ message.cause; //test
-
+                    if (myAnchor !== null)
+                        myAnchor.innerHTML = "Error"+message.cause //test
                 }
             } else if (target === 'url') {
                 const w = window.open('', '_blank');
