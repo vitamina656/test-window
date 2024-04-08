@@ -21,21 +21,26 @@
                 const url = await getUrl();
                 window.open(url, '_blank');
             } else if (target === 'anchor') {
-                const url = await getUrl();
+                try {
+                    const url = await getUrl();
+                    const event = new MouseEvent("click", {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true,
+                    });
 
-                const event = new MouseEvent("click", {
-                view: window,
-                bubbles: true,
-                cancelable: true,
-                });
+                    var a = document.createElement('a');
+                    a.setAttribute("href", url);
+                    a.setAttribute("target", "_blank");
+                    document.body.appendChild(a);
 
-                var a = document.createElement('a');
-                a.setAttribute("href", url);
-                a.setAttribute("target", "_blank");
-                document.body.appendChild(a);
+                    !a.dispatchEvent(event);
+                    !a.remove();
+                } catch (e) {
+                    const message = "Unable to contact server for operation";
+                    console.warn(message, e);
 
-                !a.dispatchEvent(event);
-                !a.remove();
+                }
             } else if (target === 'url') {
                 const w = window.open('', '_blank');
                 const url = await getUrl();
