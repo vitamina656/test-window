@@ -23,7 +23,7 @@
             } else if (target === 'anchor') {
                 try {
                     const url = await getUrl();
-                    const event = new TouchEvent("touchend", {
+                    const event = new MouseEvent("click", {
                     view: window,
                     bubbles: true,
                     cancelable: true,
