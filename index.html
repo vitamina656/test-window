@@ -13,6 +13,7 @@
         <button style="color: #690422; font-weight: 600;font-size: 25px; margin:30px" onClick= "startBankId('window')">startBankId / window open</button>
         <button style="color: #690422; font-weight: 600;font-size: 25px; margin:30px" onClick= "startBankId('anchor')">startBankId / anchor click simulator</button>
         <button style="color: #690422; font-weight: 600;font-size: 25px; margin:30px" onClick= "startBankId('url')">startBankId / window open before await</button>
+        <p id="myAnchor"></p>
     </div>
 
     <script language="javascript">
@@ -37,8 +38,10 @@
                     !a.dispatchEvent(event);
                     !a.remove();
                 } catch (e) {
-                    const message = "Unable to contact server for operation";
+                    const message =  new Error("New error message", { cause: e };
                     console.warn(message, e);
+                    const myAnchor = document.getElementById("myAnchor") //test
+                    myAnchor!.innerHTML = "Error"+ message.cause; //test
 
                 }
             } else if (target === 'url') {
